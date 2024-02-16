@@ -16,7 +16,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static com.nedorezov.consts.WebConsts.*;
+import static com.nedorezov.consts.WebConsts.MESSAGE;
+import static com.nedorezov.consts.WebConsts.OPTIONS;
+import static com.nedorezov.consts.WebConsts.INDEX_JSP;
+import static com.nedorezov.consts.WebConsts.GAME_JSP;
+import static com.nedorezov.consts.WebConsts.TRUE;
+import static com.nedorezov.consts.WebConsts.ANSWER;
+import static com.nedorezov.consts.WebConsts.RESET;
+import static com.nedorezov.consts.WebConsts.VICTORY;
+import static com.nedorezov.consts.WebConsts.SHOW_RESTART_BUTTON;
+
 
 public class GameServlet extends HttpServlet {
 
@@ -39,17 +48,17 @@ public class GameServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        newGame();
-        String nextQuestion = gameService.getNextQuestion().code;
-        request.setAttribute(MESSAGE, nextQuestion);
-        List<String> options = gameService.getCurrentNextContent();
-        request.setAttribute(OPTIONS, options);
+        request.setAttribute(MESSAGE,  gameService.getNextQuestion().getValue());
+        request.setAttribute(OPTIONS, gameService.getCurrentNextContent());
         request.getRequestDispatcher(INDEX_JSP).forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        request.setAttribute(MESSAGE, gameService.getNextQuestion().getValue());
+        request.setAttribute(OPTIONS, gameService.getCurrentNextContent());
 
         String answer = request.getParameter(ANSWER);
         if (TRUE.equals(request.getParameter(RESET))) {
@@ -59,12 +68,14 @@ public class GameServlet extends HttpServlet {
 
         if (answer != null) {
             gameService.processAnswer(answer);
-            String nextQuestionOrResult = gameService.getNextQuestion().value;
+            String nextQuestionOrResult = gameService.getNextQuestion().getValue();
             request.setAttribute(MESSAGE, nextQuestionOrResult);
             List<String> options = gameService.getCurrentNextContent();
             request.setAttribute(OPTIONS, options);
 
-            if (gameService.getNextQuestion().isGameOver) {
+            if (gameService.getNextQuestion().isGameOver()) {
+                request.setAttribute(VICTORY, gameService.getNextQuestion().isVictory());
+
                 request.setAttribute(SHOW_RESTART_BUTTON, true);
                 if (gameService.getNextQuestion().isVictory()) {
                     gameService.resetGame();

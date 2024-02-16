@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import static com.nedorezov.consts.WebConsts.GAME_START;
 
-
 @Getter
 public class GameServiceImpl implements GameService {
     private final Root root;
@@ -20,7 +19,6 @@ public class GameServiceImpl implements GameService {
     public GameServiceImpl(ContentService contentService) {
         this.root = contentService.initRoot();
         findNextQuestion(GAME_START);
-
     }
 
     public ArrayList<String> getCurrentNextContent() {
