@@ -1,0 +1,25 @@
+{
+  "content": [
+    {
+      "code": "gameStart",
+      "value": "You have lost memory. Accept the UFO call?",
+      "isGameOver": false,
+      "nextValues": [
+        "acceptUFOCall",
+        "declineUFOCall"
+      ]
+    },
+    {
+      "code": "acceptUFOCall",
+      "value": "You accepted the UFO call. Are you going to climb up to the captain?",
+      "isGameOver": true,
+      "isVictory": true
+    },
+    {
+      "code": "declineUFOCall",
+      "value": "You declined the UFO call...",
+      "isGameOver": true,
+      "isVictory": false
+    }
+  ]
+}
