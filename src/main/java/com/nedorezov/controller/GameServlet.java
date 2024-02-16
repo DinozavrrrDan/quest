@@ -7,17 +7,19 @@ import com.nedorezov.service.JsonParseService;
 import com.nedorezov.service.impl.ContentServiceImpl;
 import com.nedorezov.service.impl.GameServiceImpl;
 import com.nedorezov.service.impl.JsonParseServiceImpl;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.List;
 
+import static com.nedorezov.consts.WebConsts.*;
 
 public class GameServlet extends HttpServlet {
+
     private GameService gameService;
 
 
@@ -35,20 +37,22 @@ public class GameServlet extends HttpServlet {
     }
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        newGame();
         String nextQuestion = gameService.getNextQuestion().code;
-        request.setAttribute("message", nextQuestion);
+        request.setAttribute(MESSAGE, nextQuestion);
         List<String> options = gameService.getCurrentNextContent();
-        request.setAttribute("options", options);
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        request.setAttribute(OPTIONS, options);
+        request.getRequestDispatcher(INDEX_JSP).forward(request, response);
     }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String answer = request.getParameter("answer");
-        if ("true".equals(request.getParameter("reset"))) {
+
+        String answer = request.getParameter(ANSWER);
+        if (TRUE.equals(request.getParameter(RESET))) {
             newGame();
             answer = null;
         }
@@ -56,12 +60,12 @@ public class GameServlet extends HttpServlet {
         if (answer != null) {
             gameService.processAnswer(answer);
             String nextQuestionOrResult = gameService.getNextQuestion().value;
-            request.setAttribute("message", nextQuestionOrResult);
+            request.setAttribute(MESSAGE, nextQuestionOrResult);
             List<String> options = gameService.getCurrentNextContent();
-            request.setAttribute("options", options);
+            request.setAttribute(OPTIONS, options);
 
             if (gameService.getNextQuestion().isGameOver) {
-                request.setAttribute("showRestartButton", true);
+                request.setAttribute(SHOW_RESTART_BUTTON, true);
                 if (gameService.getNextQuestion().isVictory()) {
                     gameService.resetGame();
                 } else {
@@ -69,7 +73,7 @@ public class GameServlet extends HttpServlet {
                 }
             }
         }
-        request.getRequestDispatcher("/game.jsp").forward(request, response);
+        request.getRequestDispatcher(GAME_JSP).forward(request, response);
     }
 
 }

@@ -4,6 +4,7 @@
       "code": "gameStart",
       "value": "You have lost memory. Accept the UFO call?",
       "isGameOver": false,
+      "isVictory": false,
       "nextValues": [
         "acceptUFOCall",
         "declineUFOCall"
@@ -13,13 +14,30 @@
       "code": "acceptUFOCall",
       "value": "You accepted the UFO call. Are you going to climb up to the captain?",
       "isGameOver": true,
-      "isVictory": true
+      "isVictory": true,
+      "nextValues": [
+        "goToBridge",
+        "notGoToBridge"
+      ]
     },
     {
-      "code": "declineUFOCall",
-      "value": "You declined the UFO call...",
+      "code": "goToBridge",
+      "value": "",
       "isGameOver": true,
-      "isVictory": false
+      "isVictory": false,
+      "nextValues": [
+        "chooseWhoAreYou"
+      ]
+    },
+    {
+      "code": "chooseWhoAreYou",
+      "value": "",
+      "isGameOver": false,
+      "isVictory": false,
+      "nextValues": [
+        "tellTruth",
+        "lie"
+      ]
     }
   ]
 }

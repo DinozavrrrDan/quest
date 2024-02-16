@@ -8,6 +8,8 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 
+import static com.nedorezov.consts.WebConsts.GAME_START;
+
 
 @Getter
 public class GameServiceImpl implements GameService {
@@ -17,12 +19,12 @@ public class GameServiceImpl implements GameService {
 
     public GameServiceImpl(ContentService contentService) {
         this.root = contentService.initRoot();
-        findNextQuestion("gameStart");
+        findNextQuestion(GAME_START);
 
     }
 
     public ArrayList<String> getCurrentNextContent() {
-        return root.content.stream()
+        return root.getContent().stream()
                 .filter(el -> el.equals(nextQuestion))
                 .findFirst()
                 .get().nextValues;
@@ -33,11 +35,11 @@ public class GameServiceImpl implements GameService {
     }
 
     public void resetGame() {
-        findNextQuestion("gameStart");
+        findNextQuestion(GAME_START);
     }
 
     private void findNextQuestion(String code) {
-        root.content.stream()
+        root.getContent().stream()
                 .filter(el -> el.getCode().equals(code))
                 .findFirst()
                 .ifPresent(el -> nextQuestion = el);

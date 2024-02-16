@@ -1,8 +1,11 @@
 package com.nedorezov.model;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 
+@Getter
 public class Root{
-    public ArrayList<com.nedorezov.model.Content> content;
+    public ArrayList<Content> content;
 }
 

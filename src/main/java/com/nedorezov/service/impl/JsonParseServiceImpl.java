@@ -20,7 +20,6 @@ public class JsonParseServiceImpl implements JsonParseService {
         try {
             Scanner s = new Scanner(json).useDelimiter("\\A");
             String result = s.hasNext() ? s.next() : "";
-            System.out.println(result);
             return objectMapper.readValue(result, object);
         } catch (IOException e) {
             System.out.println("Cannot parse string to object");
