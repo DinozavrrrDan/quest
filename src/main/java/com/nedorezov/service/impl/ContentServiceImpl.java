@@ -1,12 +1,15 @@
 package com.nedorezov.service.impl;
 
 import com.nedorezov.exception.JsonParseException;
-import com.nedorezov.model.Root;
+import com.nedorezov.model.GameData;
 import com.nedorezov.service.ContentService;
 import com.nedorezov.service.JsonParseService;
 
 import java.io.IOException;
 import java.io.InputStream;
+
+import static com.nedorezov.consts.WebConsts.CANNOT_PARSE_STRING_TO_OBJECT;
+import static com.nedorezov.consts.WebConsts.GAME_JSON;
 
 
 public class ContentServiceImpl implements ContentService {
@@ -18,15 +21,15 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public Root initRoot() {
-        Root root = null;
+    public GameData initRoot() {
+        GameData gameData = null;
 
-        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("game.json")) {
-            root = (Root) jsonParseService.readObject(inputStream, Root.class);
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(GAME_JSON)) {
+            gameData = (GameData) jsonParseService.readObject(inputStream, GameData.class);
         } catch (IOException | JsonParseException e) {
-            System.out.println("Cannot parse string to object");
+            System.out.println(CANNOT_PARSE_STRING_TO_OBJECT);
             e.printStackTrace();
         }
-        return root;
+        return gameData;
     }
 }

@@ -1,7 +1,7 @@
 package com.nedorezov.service;
 
-import com.nedorezov.model.Root;
+import com.nedorezov.model.GameData;
 
 public interface ContentService {
-    public Root initRoot();
+    public GameData initRoot();
 }

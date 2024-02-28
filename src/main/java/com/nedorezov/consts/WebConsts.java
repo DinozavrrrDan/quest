@@ -12,6 +12,8 @@ public class WebConsts {
     public static final String SHOW_RESTART_BUTTON = "showRestartButton";
     public static final String GAME_JSP = "/game.jsp";
     public static final String INDEX_JSP = "/index.jsp";
+    public static final String GAME_JSON = "game.json";
+
     public static final String CANNOT_PARSE_STRING_TO_OBJECT = "Cannot parse string to object";
 
 }
