@@ -1,0 +1,66 @@
+{
+  "content": [
+    {
+      "code": "gameStart",
+      "value": "You've lost your memory. Accept the UFO challenge?",
+      "isGameOver": false,
+      "isVictory": false,
+      "nextValues": [
+        "Accept the UFO challenge",
+        "Refuse to talk to aliens"
+      ]
+    },
+    {
+      "code": "Accept the UFO challenge",
+      "value": "You accepted the UFO challenge. Go up to the bridge to the captain?",
+      "isGameOver": false,
+      "isVictory": false,
+      "nextValues": [
+        "Go to the bridge",
+        "Don't go to the bridge"
+      ]
+    },
+    {
+      "code": "Refuse to talk to aliens",
+      "value": "You rejected the UFO call. The doctors took you back to the room.",
+      "isGameOver": true,
+      "isVictory": false,
+      "nextValues": [
+      ]
+    },
+    {
+      "code": "Go to the bridge",
+      "value": "You went up to the bridge. Who are you?",
+      "isGameOver": false,
+      "isVictory": false,
+      "nextValues": [
+        "tell the truth",
+        "lie"
+      ]
+    },
+    {
+      "code": "Don't go to the bridge",
+      "value": "You didn't go to the bridge. The doctors grabbed you in the hallway",
+      "isGameOver": true,
+      "isVictory": false,
+      "nextValues": [
+      ]
+    },
+    {
+      "code": "tell the truth",
+      "value": "You've come home. Congratulations!",
+      "isGameOver": true,
+      "isVictory": true,
+      "nextValues": [
+      ]
+    },
+    {
+      "code": "lie",
+      "value": "You were exposed and sedated. Congratulations!",
+      "isGameOver": true,
+      "isVictory": false,
+      "nextValues": [
+      ]
+    }
+  ]
+}
